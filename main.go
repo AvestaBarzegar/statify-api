@@ -1,10 +1,12 @@
 package main
 
 import (
-	"fmt"
+	"log"
 	"net/http"
+	"os"
 
 	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
 )
 
 type person struct {
@@ -20,10 +22,21 @@ func mockResponse(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, persons)
 }
 
+func goDotEnvVar(key string) string {
+
+	// load .env file
+	err := godotenv.Load(".env")
+
+	if err != nil {
+		log.Fatalf("Error loading .env file")
+	}
+	return os.Getenv(key)
+}
+
 func main() {
-	fmt.Println("Hello World")
+	PORT := goDotEnvVar("PORT")
+
 	router := gin.Default()
 	router.GET("/", mockResponse)
-
-	router.Run()
+	router.Run(":" + PORT)
 }
