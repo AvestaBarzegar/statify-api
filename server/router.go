@@ -12,6 +12,7 @@ func NewRouter() *gin.Engine {
 	PORT := os.Getenv("PORT")
 	authRouter := router.Group("/")
 	authRouter.GET("/authorize", controllers.LoginUser)
+	authRouter.POST("v1/api/token", controllers.ProvideAccessToken)
 	router.Run(":" + PORT)
 	return router
 }
