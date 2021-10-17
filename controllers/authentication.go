@@ -10,12 +10,12 @@ import (
 
 // This file handles the base path of /v1/api/account
 
-// GET /v1/api/account/login
+// GET /authorize
 func LoginUser(c *gin.Context) {
 	c.Redirect(http.StatusPermanentRedirect, helpers.RedirectURL())
 }
 
-// GET /v1/api/account/token
-func AuthenticateUserWithToken(c *gin.Context) {
+// POST /v1/api/token
+func ProvideAccessToken(c *gin.Context) {
 
 }
