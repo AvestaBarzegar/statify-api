@@ -34,5 +34,5 @@ func ProvideAccessToken(c *gin.Context) {
 		return
 	}
 	defer res.Body.Close()
-	c.DataFromReader(200, res.ContentLength, "application/json", res.Body, nil)
+	c.DataFromReader(res.StatusCode, res.ContentLength, "application/json", res.Body, nil)
 }
