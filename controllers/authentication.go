@@ -27,12 +27,12 @@ func ProvideAccessToken(c *gin.Context) {
 		c.String(http.StatusBadRequest, "Bad Request")
 		return
 	}
-	res, e := helpers.ExchangeCodeForToken(body.GrantType, body.RedirectURI, body.Code)
+	res, err := helpers.ExchangeCodeForToken(body.GrantType, body.RedirectURI, body.Code)
 
-	if e != nil {
-		c.JSON(res.StatusCode, gin.H{"error": e.Error()})
+	if err != nil {
+		c.JSON(res.StatusCode, gin.H{"error": err.Error()})
 		return
 	}
-
-	c.JSON(200, res)
+	defer res.Body.Close()
+	c.DataFromReader(200, res.ContentLength, "application/json", res.Body, nil)
 }
