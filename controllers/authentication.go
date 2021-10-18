@@ -1,11 +1,13 @@
 package controllers
 
 import (
+	"log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
 
 	"github.com/AvestaBarzegar/statify-api/bindings"
+	"github.com/AvestaBarzegar/statify-api/helpers"
 )
 
 // This file handles the base path of /v1/api/account
@@ -17,6 +19,7 @@ func ProvideAccessToken(c *gin.Context) {
 	err := c.ShouldBind(&body)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		log.Println(err)
 		return
 	}
 
@@ -24,6 +27,12 @@ func ProvideAccessToken(c *gin.Context) {
 		c.String(http.StatusBadRequest, "Bad Request")
 		return
 	}
+	res, e := helpers.ExchangeCodeForToken(body.GrantType, body.RedirectURI, body.Code)
 
-	c.String(200, "ok\n")
+	if e != nil {
+		c.JSON(res.StatusCode, gin.H{"error": e.Error()})
+		return
+	}
+
+	c.JSON(200, res)
 }
