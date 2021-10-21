@@ -23,7 +23,7 @@ func ProvideAccessToken(c *gin.Context) {
 		return
 	}
 
-	if body.Code == "" || body.GrantType == "" || body.RedirectURI == "" {
+	if body.Code == "" || body.GrantType != "authorization_code" || body.RedirectURI == helpers.SpotifyTokenURL {
 		c.String(http.StatusBadRequest, "Bad Request")
 		return
 	}

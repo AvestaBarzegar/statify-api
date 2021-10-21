@@ -24,11 +24,11 @@ func ExchangeCodeForToken(grantType string, redirectUri string, code string) (*h
 	encodedBody := body.Encode()
 	client := &http.Client{}
 
-	r, _ := http.NewRequest(http.MethodPost, spotifyTokenURL, strings.NewReader(encodedBody))
+	r, _ := http.NewRequest(http.MethodPost, SpotifyTokenURL, strings.NewReader(encodedBody))
 	r.Header.Add("Content-Type", "application/x-www-form-urlencoded")
 	r.Header.Add("Authorization", authToken)
 	res, err := client.Do(r)
 	return res, err
 }
 
-var spotifyTokenURL = "https://accounts.spotify.com/api/token"
+var SpotifyTokenURL = "https://accounts.spotify.com/api/token"
