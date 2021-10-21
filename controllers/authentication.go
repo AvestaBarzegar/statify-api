@@ -10,8 +10,6 @@ import (
 	"github.com/AvestaBarzegar/statify-api/helpers"
 )
 
-// This file handles the base path of /v1/api/account
-
 // POST /v1/api/token
 func ProvideAccessToken(c *gin.Context) {
 	body := bindings.RequestAccessTokenBody{}
