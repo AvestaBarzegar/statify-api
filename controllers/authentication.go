@@ -12,7 +12,7 @@ import (
 
 // POST /v1/api/token
 func ProvideAccessToken(c *gin.Context) {
-	body := bindings.RequestAccessTokenBody{}
+	body := bindings.RequestAccessTokenQuery{}
 
 	err := c.ShouldBind(&body)
 	if err != nil {
