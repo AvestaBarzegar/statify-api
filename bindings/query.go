@@ -6,5 +6,9 @@ type RequestAccessTokenQuery struct {
 	RedirectURI string `form:"redirect_uri"`
 }
 
+// ?id={id}&artist={artist}&track={track}
 type SongInformationQuery struct {
+	SongId string `form:"id"`
+	Artist string `form:"artist"`
+	Track  string `form:"track"`
 }
