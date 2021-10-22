@@ -6,4 +6,5 @@ type RequestAccessTokenQuery struct {
 	RedirectURI string `form:"redirect_uri"`
 }
 
-type SongInformation
+type SongInformationQuery struct {
+}
