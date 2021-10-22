@@ -31,4 +31,11 @@ func ExchangeCodeForToken(grantType string, redirectUri string, code string) (*h
 	return res, err
 }
 
-var SpotifyTokenURL = "https://accounts.spotify.com/api/token"
+const SpotifyTokenURL = "https://accounts.spotify.com/api/token"
+const lyricsURL = "https://api.lyrics.ovh/v1/"
+
+func GetLyrics(artist string, track string) (*http.Response, error) {
+	newPath := lyricsURL + artist + "/" + track
+	res, err := http.Get(newPath)
+	return res, err
+}
