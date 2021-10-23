@@ -10,6 +10,7 @@ import (
 	"github.com/AvestaBarzegar/statify-api/helpers/consts"
 )
 
+// read this
 const grantType = "client_credentials"
 
 var ServerAuthToken *string = nil
