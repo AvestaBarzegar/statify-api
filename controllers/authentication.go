@@ -6,14 +6,13 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"github.com/AvestaBarzegar/statify-api/bindings"
 	"github.com/AvestaBarzegar/statify-api/helpers"
 	"github.com/AvestaBarzegar/statify-api/helpers/consts"
 )
 
 // POST /v1/api/token
 func ProvideAccessToken(c *gin.Context) {
-	body := bindings.RequestAccessTokenQuery{}
+	body := helpers.RequestAccessTokenQuery{}
 
 	err := c.ShouldBind(&body)
 	if err != nil {
