@@ -8,7 +8,7 @@ import (
 
 	"github.com/AvestaBarzegar/statify-api/bindings"
 	"github.com/AvestaBarzegar/statify-api/helpers"
-	"github.com/AvestaBarzegar/statify-api/helpers/constants"
+	"github.com/AvestaBarzegar/statify-api/helpers/consts"
 )
 
 // POST /v1/api/token
@@ -22,7 +22,7 @@ func ProvideAccessToken(c *gin.Context) {
 		return
 	}
 
-	if body.Code == "" || body.GrantType != "authorization_code" || body.RedirectURI == constants.SpotifyTokenURL {
+	if body.Code == "" || body.GrantType != "authorization_code" || body.RedirectURI == consts.SpotifyTokenURL {
 		c.String(http.StatusBadRequest, "Bad Request")
 		return
 	}

@@ -7,7 +7,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/AvestaBarzegar/statify-api/helpers/constants"
+	"github.com/AvestaBarzegar/statify-api/helpers/consts"
 )
 
 func encodeClientSecretAndId() string {
@@ -26,7 +26,7 @@ func ExchangeCodeForToken(grantType string, redirectUri string, code string) (*h
 	encodedBody := body.Encode()
 	client := &http.Client{}
 
-	r, _ := http.NewRequest(http.MethodPost, SpotifyTokenURL, strings.NewReader(encodedBody))
+	r, _ := http.NewRequest(http.MethodPost, consts.SpotifyTokenURL, strings.NewReader(encodedBody))
 	r.Header.Add("Content-Type", "application/x-www-form-urlencoded")
 	r.Header.Add("Authorization", authToken)
 	res, err := client.Do(r)
@@ -34,7 +34,7 @@ func ExchangeCodeForToken(grantType string, redirectUri string, code string) (*h
 }
 
 func GetLyrics(artist string, track string) (*http.Response, error) {
-	newPath := constants.LyricsURL + artist + "/" + track
+	newPath := consts.LyricsURL + artist + "/" + track
 	res, err := http.Get(newPath)
 	return res, err
 }
