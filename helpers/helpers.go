@@ -4,16 +4,13 @@ import (
 	b64 "encoding/base64"
 	"net/http"
 	"net/url"
-	"os"
 	"strings"
 
 	"github.com/AvestaBarzegar/statify-api/helpers/consts"
 )
 
 func encodeClientSecretAndId() string {
-	clientId := os.Getenv("SPOTIFY_CLIENT_ID")
-	clientSecret := os.Getenv("SPOTIFY_CLIENT_SECRET")
-	toBeEncoded := clientId + ":" + clientSecret
+	toBeEncoded := consts.ClientId + ":" + consts.ClientSecret
 	return b64.StdEncoding.EncodeToString([]byte(toBeEncoded))
 }
 
