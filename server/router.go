@@ -4,6 +4,7 @@ import (
 	"os"
 
 	"github.com/AvestaBarzegar/statify-api/controllers"
+	"github.com/AvestaBarzegar/statify-api/middleware"
 	"github.com/gin-gonic/gin"
 )
 
@@ -23,5 +24,6 @@ func setupAuthRouter(router *gin.Engine) {
 
 func setupSongRouter(router *gin.Engine) {
 	songRouter := router.Group("/v1/songs")
+	songRouter.Use(middleware.RefreshAuthToken())
 	songRouter.GET("/", controllers.GetLyrics)
 }

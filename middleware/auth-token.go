@@ -8,6 +8,7 @@ import (
 
 	"github.com/AvestaBarzegar/statify-api/helpers"
 	"github.com/AvestaBarzegar/statify-api/helpers/consts"
+	"github.com/gin-gonic/gin"
 )
 
 // read this
@@ -16,11 +17,13 @@ const grantType = "client_credentials"
 var ServerAuthToken *string = nil
 var expiryDate = time.Now().Unix() - 3000
 
-func RefreshAuthToken() {
-	currentTime := time.Now().Unix()
-	// If the authToken is expired
-	if currentTime >= expiryDate || ServerAuthToken == nil {
-		// Make HTTP request and update expiryDate
+func RefreshAuthToken() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		currentTime := time.Now().Unix()
+		// If the authToken is expired
+		if currentTime >= expiryDate || ServerAuthToken == nil {
+			// Make HTTP request and update expiryDate
+		}
 	}
 }
 
