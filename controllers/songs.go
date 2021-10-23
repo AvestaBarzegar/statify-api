@@ -40,7 +40,7 @@ returns:
 
 */
 
-// GET v1/song/{id}/analysis
+// GET v1/song/lyrics
 
 func GetLyrics(c *gin.Context) {
 	queryParams := bindings.SongInformationQuery{}
