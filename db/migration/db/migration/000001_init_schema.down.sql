@@ -1,11 +1,11 @@
-DROP TABLE artists;
+DROP TABLE IF EXISTS artists;
 
-DROP TABLE tracks;
+DROP TABLE IF EXISTS tracks;
 
-DROP TABLE users;
+DROP TABLE IF EXISTS users;
 
-DROP TYPE artist;
+DROP TYPE IF EXISTS artist;
 
-DROP TYPE track;
+DROP TYPE IF EXISTS track;
 
-DROP TYPE time_span;
+DROP TYPE IF EXISTS time_span;
