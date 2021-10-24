@@ -44,10 +44,10 @@ CREATE TABLE artists (
 );
 COMMIT;
 BEGIN;
-CREATE INDEX ON items (tracks);
-CREATE INDEX ON created_at (tracks);
+CREATE INDEX ON tracks (items);
+CREATE INDEX ON tracks (created_at);
 COMMIT;
 BEGIN;
-CREATE INDEX ON items (artists);
-CREATE INDEX ON created_at (artists);
+CREATE INDEX ON artists (items);
+CREATE INDEX ON artists (created_at);
 COMMIT;
