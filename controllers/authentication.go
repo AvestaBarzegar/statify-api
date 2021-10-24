@@ -8,11 +8,12 @@ import (
 
 	"github.com/AvestaBarzegar/statify-api/helpers"
 	"github.com/AvestaBarzegar/statify-api/helpers/consts"
+	httpModels "github.com/AvestaBarzegar/statify-api/models/http"
 )
 
 // POST /v1/api/token
 func ProvideAccessToken(c *gin.Context) {
-	body := helpers.RequestAccessTokenQuery{}
+	body := httpModels.RequestAccessTokenQuery{}
 
 	err := c.ShouldBind(&body)
 	if err != nil {
