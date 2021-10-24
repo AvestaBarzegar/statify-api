@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/AvestaBarzegar/statify-api/helpers"
+	httpModels "github.com/AvestaBarzegar/statify-api/models/http"
 	"github.com/gin-gonic/gin"
 )
 
@@ -42,7 +43,7 @@ returns:
 // GET v1/song/lyrics
 
 func GetLyrics(c *gin.Context) {
-	queryParams := helpers.SongInformationQuery{}
+	queryParams := httpModels.SongInformationQuery{}
 
 	err := c.ShouldBind(&queryParams)
 	if err != nil {

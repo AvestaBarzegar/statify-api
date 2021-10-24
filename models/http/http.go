@@ -1,4 +1,4 @@
-package helpers
+package http
 
 type RequestAccessTokenQuery struct {
 	GrantType   string `form:"grant_type"`

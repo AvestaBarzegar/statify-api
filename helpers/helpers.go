@@ -1,7 +1,6 @@
 package helpers
 
 import (
-	b64 "encoding/base64"
 	"net/http"
 	"net/url"
 	"strings"
@@ -9,13 +8,8 @@ import (
 	"github.com/AvestaBarzegar/statify-api/helpers/consts"
 )
 
-func EncodeClientSecretAndId() string {
-	toBeEncoded := consts.ClientId + ":" + consts.ClientSecret
-	return b64.StdEncoding.EncodeToString([]byte(toBeEncoded))
-}
-
 func ExchangeCodeForToken(grantType string, redirectUri string, code string) (*http.Response, error) {
-	authToken := "Basic " + EncodeClientSecretAndId()
+	authToken := "Basic " + consts.EncodeClientSecretAndId()
 	body := url.Values{}
 	body.Set("grant_type", grantType)
 	body.Set("redirect_uri", redirectUri)
