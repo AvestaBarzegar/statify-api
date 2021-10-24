@@ -26,7 +26,7 @@ CREATE TABLE users (
 CREATE TABLE tracks (
   id int PRIMARY KEY SERIAL,
   spotify_user_id text NOT NULL,
-  created_at timestamp without time zone default (now() at time zone 'utc'),
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   time_span time_span NOT NULL,
   tracks track[] NOT NULL
 );
@@ -34,7 +34,7 @@ CREATE TABLE tracks (
 CREATE TABLE artists (
   id int PRIMARY KEY SERIAL,
   spotify_user_id text NOT NULL,
-  created_at timestamp without time zone default (now() at time zone 'utc'),
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   time_span time_span NOT NULL,
   tracks artist[] NOT NULL
 );
