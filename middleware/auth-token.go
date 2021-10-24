@@ -6,7 +6,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/AvestaBarzegar/statify-api/helpers"
 	"github.com/AvestaBarzegar/statify-api/helpers/consts"
 	"github.com/gin-gonic/gin"
 )
@@ -28,7 +27,7 @@ func RefreshAuthToken() gin.HandlerFunc {
 }
 
 func getServerAuthToken() (*http.Response, error) {
-	authToken := "Basic " + helpers.EncodeClientSecretAndId()
+	authToken := "Basic " + consts.EncodeClientSecretAndId()
 	body := url.Values{}
 	body.Set("grant_type", grantType)
 	encodedBody := body.Encode()
