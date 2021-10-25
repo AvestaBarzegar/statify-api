@@ -9,7 +9,7 @@ import (
 	"time"
 
 	"github.com/AvestaBarzegar/statify-api/helpers/consts"
-	jsonModels "github.com/AvestaBarzegar/statify-api/helpers/models/http"
+	jsonModels "github.com/AvestaBarzegar/statify-api/models/http"
 	"github.com/gin-gonic/gin"
 )
 
@@ -35,8 +35,8 @@ func RefreshAuthToken() gin.HandlerFunc {
 			if err := json.Unmarshal(body, &result); err != nil {
 				c.AbortWithStatus(http.StatusFailedDependency)
 			}
-			expiryDate = time.Now().Unix() + result.ExpiresIn - 600
-			ServerAuthToken = result.AccessToken
+			expiryDate = time.Now().Unix() + int64(result.ExpiresIn)
+			ServerAuthToken = &result.AccessToken
 		}
 	}
 }
