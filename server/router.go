@@ -25,6 +25,5 @@ func setupAuthRouter(router *gin.Engine) {
 func setupTrackRouter(router *gin.Engine) {
 	trackRouter := router.Group("/v1/tracks")
 	trackRouter.Use(middleware.RefreshAuthToken())
-	trackRouter.GET("/", controllers.GetLyrics)
 	trackRouter.GET("/traits/", controllers.GetTrackTraits)
 }
