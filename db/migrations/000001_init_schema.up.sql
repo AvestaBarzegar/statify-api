@@ -44,10 +44,8 @@ CREATE TABLE artists (
 );
 COMMIT;
 BEGIN;
-CREATE INDEX ON tracks (items);
-CREATE INDEX ON tracks (created_at);
+CREATE INDEX ON tracks (spotify_user_id);
 COMMIT;
 BEGIN;
-CREATE INDEX ON artists (items);
-CREATE INDEX ON artists (created_at);
+CREATE INDEX ON artists (spotify_user_id);
 COMMIT;
