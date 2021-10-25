@@ -20,7 +20,7 @@ BEGIN;
 CREATE TABLE users (
   id SERIAL PRIMARY KEY,
   spotify_user_id text UNIQUE NOT NULL,
-  created_at timestamp NOT NULL,
+  created_at timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL,
   is_premium boolean NOT NULL,
   updated_at timestamp NOT NULL
 );
@@ -29,7 +29,7 @@ BEGIN;
 CREATE TABLE tracks (
   id SERIAL PRIMARY KEY,
   spotify_user_id text NOT NULL,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
   time_span time_span NOT NULL,
   items track [] NOT NULL
 );
@@ -38,7 +38,7 @@ BEGIN;
 CREATE TABLE artists (
   id SERIAL PRIMARY KEY,
   spotify_user_id text NOT NULL,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
   time_span time_span NOT NULL,
   items artist [] NOT NULL
 );
