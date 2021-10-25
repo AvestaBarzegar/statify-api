@@ -1,12 +1,15 @@
 package middleware
 
 import (
+	"encoding/json"
+	"io/ioutil"
 	"net/http"
 	"net/url"
 	"strings"
 	"time"
 
 	"github.com/AvestaBarzegar/statify-api/helpers/consts"
+	jsonModels "github.com/AvestaBarzegar/statify-api/helpers/models/http"
 	"github.com/gin-gonic/gin"
 )
 
@@ -22,6 +25,18 @@ func RefreshAuthToken() gin.HandlerFunc {
 		// If the authToken is expired
 		if currentTime >= expiryDate || ServerAuthToken == nil {
 			// Make HTTP request and update expiryDate
+			resp, err := getServerAuthToken()
+			if err != nil {
+				c.AbortWithStatus(http.StatusUnauthorized)
+			}
+			defer resp.Body.Close()
+			body, err := ioutil.ReadAll(resp.Body)
+			var result jsonModels.AuthTokenResponse
+			if err := json.Unmarshal(body, &result); err != nil {
+				c.AbortWithStatus(http.StatusFailedDependency)
+			}
+			expiryDate = time.Now().Unix() + result.ExpiresIn - 600
+			ServerAuthToken = result.AccessToken
 		}
 	}
 }
