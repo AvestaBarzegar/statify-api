@@ -12,7 +12,7 @@ func NewRouter() *gin.Engine {
 	router := gin.New()
 	PORT := os.Getenv("PORT")
 	setupAuthRouter(router)
-	setupSongRouter(router)
+	setupTrackRouter(router)
 	router.Run(":" + PORT)
 	return router
 }
@@ -22,8 +22,9 @@ func setupAuthRouter(router *gin.Engine) {
 	authRouter.POST("/v1/api/token", controllers.ProvideAccessToken)
 }
 
-func setupSongRouter(router *gin.Engine) {
-	songRouter := router.Group("/v1/songs")
-	songRouter.Use(middleware.RefreshAuthToken())
-	songRouter.GET("/", controllers.GetLyrics)
+func setupTrackRouter(router *gin.Engine) {
+	trackRouter := router.Group("/v1/tracks")
+	trackRouter.Use(middleware.RefreshAuthToken())
+	trackRouter.GET("/", controllers.GetLyrics)
+	trackRouter.GET("/traits/", controllers.GetTrackTraits)
 }
