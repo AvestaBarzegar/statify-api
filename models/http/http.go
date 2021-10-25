@@ -39,3 +39,7 @@ type TrackTraitsResponse struct {
 	DurationMs       int     `json:"duration_ms"`
 	TimeSignature    int     `json:"time_signature"`
 }
+
+type LyricsResponseModel struct {
+	Lyrics string `json:"lyrics"`
+}
