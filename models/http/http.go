@@ -43,3 +43,8 @@ type TrackTraitsResponse struct {
 type LyricsResponseModel struct {
 	Lyrics string `json:"lyrics"`
 }
+
+type TrackTraitsClientResponseModel struct {
+	Lyrics      string              `json:"lyrics"`
+	TrackTraits TrackTraitsResponse `json:"traits"`
+}
