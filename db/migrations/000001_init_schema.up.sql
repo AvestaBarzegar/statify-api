@@ -43,6 +43,14 @@ CREATE TABLE artists (
   items artist [] NOT NULL
 );
 COMMIT;
+BEGIN:
+CREATE TABLE track_information (
+  id SERIAL PRIMARY KEY,
+  spotify_track_id text UNIQUE NOT NULL,
+  lyrics text,
+);
+COMMIT;
+
 BEGIN;
 CREATE INDEX ON tracks (spotify_user_id);
 COMMIT;
