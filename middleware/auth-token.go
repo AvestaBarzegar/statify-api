@@ -30,7 +30,7 @@ func RefreshAuthToken() gin.HandlerFunc {
 				c.AbortWithStatus(http.StatusUnauthorized)
 			}
 			defer resp.Body.Close()
-			body, err := ioutil.ReadAll(resp.Body)
+			body, _ := ioutil.ReadAll(resp.Body)
 			var result jsonModels.AuthTokenResponse
 			if err := json.Unmarshal(body, &result); err != nil {
 				c.AbortWithStatus(http.StatusFailedDependency)
