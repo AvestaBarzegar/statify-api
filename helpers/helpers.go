@@ -29,3 +29,7 @@ func GetLyrics(artist string, track string) (*http.Response, error) {
 	res, err := http.Get(newPath)
 	return res, err
 }
+
+func GetSongDetails(id string) (*http.Response, error) {
+
+}
