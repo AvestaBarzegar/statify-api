@@ -18,8 +18,8 @@ func NewRouter() *gin.Engine {
 }
 
 func setupAuthRouter(router *gin.Engine) {
-	authRouter := router.Group("/v1/")
-	authRouter.POST("/v1/api/token", controllers.ProvideAccessToken)
+	authRouter := router.Group("/v1")
+	authRouter.POST("/api/token", controllers.ProvideAccessToken)
 }
 
 func setupTrackRouter(router *gin.Engine) {

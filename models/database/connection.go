@@ -3,22 +3,29 @@ package database
 import (
 	"database/sql"
 	"fmt"
+	"log"
 
 	"github.com/AvestaBarzegar/statify-api/helpers/consts"
+	_ "github.com/lib/pq"
 )
 
-func OpenConnection() *sql.DB {
-	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s "+"password=%s dbname=%s sslmode=disable", consts.HOST, consts.GetPortDB(), consts.USER, consts.PASSWORD, consts.DB)
+type Database struct {
+	Conn *sql.DB
+}
 
-	db, err := sql.Open("postgres", psqlInfo)
+func Initialize() (Database, error) {
+	db := Database{}
+	dsn := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable",
+		consts.HOST, consts.GetPortDB(), consts.USER, consts.PASSWORD, consts.DB)
+	conn, err := sql.Open("postgres", dsn)
 	if err != nil {
-		panic(err)
+		return db, err
 	}
-
-	err = db.Ping()
+	db.Conn = conn
+	err = db.Conn.Ping()
 	if err != nil {
-		panic(err)
+		return db, err
 	}
-
-	return db
+	log.Println("Database connection established")
+	return db, nil
 }
