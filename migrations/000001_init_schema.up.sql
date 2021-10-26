@@ -12,7 +12,7 @@ CREATE TYPE track AS (
 COMMIT;
 CREATE TYPE artist AS (
   artist_name text,
-  artist_spotify_id text,
+  spotify_artist_id text,
   artist_image_url text,
   artist_rank int
 );
@@ -43,13 +43,13 @@ CREATE TABLE artists (
   items artist [] NOT NULL
 );
 COMMIT;
-BEGIN:
+
 CREATE TABLE track_information (
   id SERIAL PRIMARY KEY,
   spotify_track_id text UNIQUE NOT NULL,
-  lyrics text,
+  lyrics text NOT NULL
 );
-COMMIT;
+
 
 BEGIN;
 CREATE INDEX ON tracks (spotify_user_id);
