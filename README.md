@@ -8,7 +8,10 @@ main.go is the entry point of the app
 go to the server folder to see how I mount endpoints (i basically declare the URLs that the iOS app and possible website would call)
 
 inside controllers i put the logic for handling http requests
+\n
 helpers are just helpers that help stuff (functions that make http requests, constants, etc)
+\n
 migrations is DB related but basically i have a migration to setup my databases and another to reverse the database setup
+\n
 models is where structs that represent information is stroed
 
