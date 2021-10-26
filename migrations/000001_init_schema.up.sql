@@ -12,7 +12,7 @@ CREATE TYPE track AS (
 COMMIT;
 CREATE TYPE artist AS (
   artist_name text,
-  artist_spotify_id text,
+  spotify_artist_id text,
   artist_image_url text,
   artist_rank int
 );
