@@ -25,16 +25,16 @@ type TopTracks struct {
 	SpotifyUserId string `json:"spotify_user_id"`
 	CreatedAt     int64  `json:"created_at"`
 	// Is either FourWeeks, SixMonths, or AllTime
-	TimeSpan string `json:"time_span"`
-	Tracks   Track  `json:"items"`
+	TimeSpan string  `json:"time_span"`
+	Tracks   []Track `json:"items"`
 }
 
 type TopArtists struct {
 	SpotifyUserId string `json:"spotify_user_id"`
 	CreatedAt     int64  `json:"created_at"`
 	// Is either FourWeeks, SixMonths, or AllTime
-	TimeSpan string `json:"time_span"`
-	Artists  Artist `json:"items"`
+	TimeSpan string   `json:"time_span"`
+	Artists  []Artist `json:"items"`
 }
 
 type TopInfoResponse struct {
