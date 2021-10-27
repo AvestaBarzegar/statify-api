@@ -7,9 +7,9 @@ const (
 )
 
 type Track struct {
-	TrackName      string `json:"track_name" db:"track_name`
+	TrackName      string `json:"track_name" db:"track_name"`
 	ArtistName     string `json:"artist_name" db:"artist_name"`
-	SpotifyTrackId string `json:"spotify_track_id" db:"spotify_track_id`
+	SpotifyTrackId string `json:"spotify_track_id" db:"spotify_track_id"`
 	TrackImageURL  string `json:"track_image_url" db:"track_image_url"`
 	TrackRank      int    `json:"track_rank" db:"track_rank"`
 }
