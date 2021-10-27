@@ -8,11 +8,19 @@ import (
 
 	"github.com/AvestaBarzegar/statify-api/helpers"
 	"github.com/AvestaBarzegar/statify-api/helpers/consts"
+	"github.com/AvestaBarzegar/statify-api/models/database"
 	httpModels "github.com/AvestaBarzegar/statify-api/models/http"
 )
 
 // POST /v1/api/token
 func ProvideAccessToken(c *gin.Context) {
+	database.InsertArtistRow("sdkka", database.AllTime, []database.Artist{
+		database.Artist{},
+		database.Artist{
+			ArtistName: "JPEGMAFIA",
+		},
+	})
+	database.GetHistoricalTopArtists("alrighticantfindagoodname")
 	body := httpModels.RequestAccessTokenQuery{}
 
 	err := c.ShouldBind(&body)

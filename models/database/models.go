@@ -30,8 +30,9 @@ type TopTracks struct {
 }
 
 type TopArtists struct {
+	Id            int64  `json:"id" db:"id"`
 	SpotifyUserId string `json:"spotify_user_id" db:"spotify_user_id"`
-	CreatedAt     int64  `json:"created_at" db:"created_at"`
+	CreatedAt     string `json:"created_at" db:"created_at"`
 	// Is either FourWeeks, SixMonths, or AllTime
 	TimeSpan string   `json:"time_span" db:"time_span"`
 	Artists  []Artist `json:"items" db:"items"`
