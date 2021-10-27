@@ -22,19 +22,19 @@ type Artist struct {
 }
 
 type TopTracks struct {
-	SpotifyUserId string `json:"spotify_user_id"`
-	CreatedAt     int64  `json:"created_at"`
+	SpotifyUserId string `json:"spotify_user_id" db:"spotify_user_id"`
+	CreatedAt     int64  `json:"created_at" db:"created_at"`
 	// Is either FourWeeks, SixMonths, or AllTime
-	TimeSpan string  `json:"time_span"`
-	Tracks   []Track `json:"items"`
+	TimeSpan string  `json:"time_span" db:"time_span"`
+	Tracks   []Track `json:"items" db:"items"`
 }
 
 type TopArtists struct {
-	SpotifyUserId string `json:"spotify_user_id"`
-	CreatedAt     int64  `json:"created_at"`
+	SpotifyUserId string `json:"spotify_user_id" db:"spotify_user_id"`
+	CreatedAt     int64  `json:"created_at" db:"created_at"`
 	// Is either FourWeeks, SixMonths, or AllTime
-	TimeSpan string   `json:"time_span"`
-	Artists  []Artist `json:"items"`
+	TimeSpan string   `json:"time_span" db:"time_span"`
+	Artists  []Artist `json:"items" db:"items"`
 }
 
 type TopInfoResponse struct {
