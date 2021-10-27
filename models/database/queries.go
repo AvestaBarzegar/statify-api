@@ -34,6 +34,5 @@ func GetHistoricalTopArtists(spotify_user_id string) ([]TopArtists, error) {
 	if err := rows.Err(); err != nil {
 		log.Fatalf("Something went wrong %v", err)
 	}
-	log.Println(topArtists)
 	return topArtists, nil
 }
