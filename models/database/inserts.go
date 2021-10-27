@@ -14,14 +14,18 @@ func InsertTrackRow(spotifyUserId string, time_span string, tracks []Track) bool
 		return false
 	}
 	conn := db.Conn
-	stmt := `INSERT INTO tracks 
+	stmtStr := `INSERT INTO tracks 
 			(spotify_user_id, time_span, items) 
 			VALUES 
 			($1, $2, $3::track[]);`
-	_, err := conn.Exec(stmt, spotifyUserId, time_span, pq.Array(tracks))
+	stmt, err := conn.Prepare(stmtStr)
+	if err != nil {
+		log.Fatal(err)
+	}
+	_, err_query := stmt.Exec(spotifyUserId, time_span, pq.Array(tracks))
 
 	defer conn.Close()
-	if err != nil {
+	if err_query != nil {
 		log.Fatal(err)
 		return false
 	}
@@ -35,14 +39,18 @@ func InsertArtistRow(spotifyUserId string, time_span string, artists []Artist) b
 		return false
 	}
 	conn := db.Conn
-	stmt := `INSERT INTO artists 
+	stmtStr := `INSERT INTO artists 
 			(spotify_user_id, time_span, items) 
 			VALUES 
 			($1, $2, $3::artist[]);`
-	_, err := conn.Exec(stmt, spotifyUserId, time_span, pq.Array(artists))
+	stmt, err := conn.Prepare(stmtStr)
+	if err != nil {
+		log.Fatal(err)
+	}
+	_, err_query := stmt.Exec(spotifyUserId, time_span, pq.Array(artists))
 
 	defer conn.Close()
-	if err != nil {
+	if err_query != nil {
 		log.Fatal(err)
 		return false
 	}
