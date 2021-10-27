@@ -5,12 +5,21 @@ import (
 	"fmt"
 )
 
-func (v Track) Value() (driver.Value, error) {
+func (t Track) Value() (driver.Value, error) {
 	s := fmt.Sprintf("(%s, %s, %s, %s, %d)",
-		v.TrackName,
-		v.ArtistName,
-		v.SpotifyTrackId,
-		v.TrackImageURL,
-		v.TrackRank)
+		t.TrackName,
+		t.ArtistName,
+		t.SpotifyTrackId,
+		t.TrackImageURL,
+		t.TrackRank)
+	return []byte(s), nil
+}
+
+func (a Artist) Value() (driver.Value, error) {
+	s := fmt.Sprintf("(%s, %s, %s, %d)",
+		a.ArtistName,
+		a.SpotifyArtistId,
+		a.ArtistImageURL,
+		a.ArtistRank)
 	return []byte(s), nil
 }
