@@ -34,15 +34,26 @@ func (a *Artists) Scan(value interface{}) error {
 	if !ok {
 		return errors.New("incompatible type from bytes")
 	}
+	// Make a string that is parseable
 	source := string(bytes)
+
+	// Replace all unnecessary characters
+	for _, old := range []string{"\\\"", "\"", "{", "}", "(", "[", "]"} {
+		source = strings.ReplaceAll(source, old, "")
+	}
 	var res Artists
-	artists := strings.Split(source, "\",\"")
+	// Split up the whole string into an array of strings that represent each artist object
+	artists := strings.Split(source, "),")
+	// Remove all unnecessary braces
+	artists[len(artists)-1] = strings.TrimRight(artists[len(artists)-1], ")")
+	// If the column is empty then we can return an empty array
+	if len(artists) == 1 && artists[0] == "" {
+		a = &Artists{}
+		return nil
+	}
 	for _, artist := range artists {
-		for _, old := range []string{"\\\"", "\"", "{", "}", "(", ")"} {
-			artist = strings.ReplaceAll(artist, old, "")
-		}
 		artistRawData := strings.Split(artist, ",")
-		i, err := strconv.Atoi(artistRawData[1])
+		i, err := strconv.Atoi(artistRawData[3])
 		if err != nil {
 			return fmt.Errorf("parce ArtistRank raw data (%s) in %d iteration error: %v", artist, i, err)
 		}
@@ -54,5 +65,6 @@ func (a *Artists) Scan(value interface{}) error {
 		})
 	}
 	*a = res
+
 	return nil
 }
