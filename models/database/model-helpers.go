@@ -80,7 +80,7 @@ func (t *Tracks) Scan(value interface{}) error {
 		source = strings.ReplaceAll(source, old, "")
 	}
 	var res Tracks
-	// Split up the whole string into an array of strings that represent each artist object
+	// Split up the whole string into an array of strings that represent each track object
 	tracks := strings.Split(source, "),")
 	// Remove all unnecessary braces
 	tracks[len(tracks)-1] = strings.TrimRight(tracks[len(tracks)-1], ")")
