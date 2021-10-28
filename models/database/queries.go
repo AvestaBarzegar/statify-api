@@ -22,7 +22,6 @@ func GetHistoricalTopArtists(spotify_user_id string) ([]TopArtists, error) {
 		log.Fatalf("Something went wrong %v", errStmt)
 	}
 	defer rows.Close()
-	log.Println(rows)
 	for rows.Next() {
 		topArtist := new(TopArtists)
 		err := rows.Scan(&topArtist.Id, &topArtist.SpotifyUserId, &topArtist.CreatedAt, &topArtist.TimeSpan, &topArtist.Artists)
