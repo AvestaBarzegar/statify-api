@@ -27,8 +27,6 @@ func (a Artist) Value() (driver.Value, error) {
 	return []byte(s), nil
 }
 
-type Artists []Artist
-
 func (a *Artists) Scan(value interface{}) error {
 	bytes, ok := value.([]byte) // input example 👉🏻 {"(david,38,url,1)","(david2,2,\"url 2\",2)"}
 	if !ok {

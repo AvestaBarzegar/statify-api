@@ -21,14 +21,15 @@ type Artist struct {
 	ArtistRank      int    `json:"track_rank"`
 }
 
+type Tracks []Track
 type TopTracks struct {
 	SpotifyUserId string `json:"spotify_user_id" db:"spotify_user_id"`
 	CreatedAt     int64  `json:"created_at" db:"created_at"`
-	// Is either FourWeeks, SixMonths, or AllTime
-	TimeSpan string  `json:"time_span" db:"time_span"`
-	Tracks   []Track `json:"items" db:"items"`
+	TimeSpan      string `json:"time_span" db:"time_span"`
+	Tracks        Tracks `json:"items" db:"items"`
 }
 
+type Artists []Artist
 type TopArtists struct {
 	Id            int64   `json:"id" db:"id"`
 	SpotifyUserId string  `json:"spotify_user_id" db:"spotify_user_id"`
