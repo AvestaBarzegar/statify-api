@@ -1,5 +1,10 @@
 package http
 
+type RequestHeaders struct {
+	ContentType   string `header:"Content-Type"`
+	Authorization string `header:"Authorization"`
+}
+
 type RequestAccessTokenQuery struct {
 	GrantType   string `form:"grant_type"`
 	Code        string `form:"code"`
