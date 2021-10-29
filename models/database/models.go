@@ -23,14 +23,14 @@ type Artist struct {
 
 type Tracks []Track
 type TopTracks struct {
-	CreatedAt string `json:"created_at" db:"created_at"`
+	CreatedAt int64  `json:"created_at" db:"created_at"`
 	TimeSpan  string `json:"time_span" db:"time_span"`
 	Tracks    Tracks `json:"items" db:"items"`
 }
 
 type Artists []Artist
 type TopArtists struct {
-	CreatedAt string  `json:"created_at" db:"created_at"`
+	CreatedAt int64   `json:"created_at" db:"created_at"`
 	TimeSpan  string  `json:"time_span" db:"time_span"`
 	Artists   Artists `json:"items" db:"items"`
 }

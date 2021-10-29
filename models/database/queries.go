@@ -4,7 +4,7 @@ import (
 	"log"
 )
 
-func GetHistoricalTopArtists(spotify_user_id string) ([]TopArtists, error) {
+func GetHistoricalTopArtists(spotifyUserId string) ([]TopArtists, error) {
 	db, e := Initialize()
 	var topArtists []TopArtists
 	if e != nil {
@@ -12,12 +12,12 @@ func GetHistoricalTopArtists(spotify_user_id string) ([]TopArtists, error) {
 		return topArtists, e
 	}
 	conn := db.Conn
-	stmtStr := `SELECT created_at, time_span, items FROM artists WHERE spotify_user_id=$1`
+	stmtStr := `SELECT (EXTRACT(EPOCH FROM created_at))::bigint, time_span, items FROM artists WHERE spotify_user_id=$1`
 	stmt, err := conn.Prepare(stmtStr)
 	if err != nil {
 		log.Print(err)
 	}
-	rows, errStmt := stmt.Query(spotify_user_id)
+	rows, errStmt := stmt.Query(spotifyUserId)
 	if errStmt != nil {
 		log.Printf("Something went wrong %v", errStmt)
 	}
@@ -37,7 +37,7 @@ func GetHistoricalTopArtists(spotify_user_id string) ([]TopArtists, error) {
 	return topArtists, nil
 }
 
-func GetHistoricalTopTracks(spotify_user_id string) ([]TopTracks, error) {
+func GetHistoricalTopTracks(spotifyUserId string) ([]TopTracks, error) {
 	db, e := Initialize()
 	var topTracks []TopTracks
 	if e != nil {
@@ -45,14 +45,16 @@ func GetHistoricalTopTracks(spotify_user_id string) ([]TopTracks, error) {
 		return topTracks, e
 	}
 	conn := db.Conn
-	stmtStr := `SELECT created_at, time_span, items FROM tracks WHERE spotify_user_id=$1`
+	stmtStr := `SELECT (EXTRACT(EPOCH FROM created_at))::bigint, time_span, items FROM tracks WHERE spotify_user_id=$1`
 	stmt, err := conn.Prepare(stmtStr)
 	if err != nil {
 		log.Print(err)
+		return topTracks, err
 	}
-	rows, errStmt := stmt.Query(spotify_user_id)
+	rows, errStmt := stmt.Query(spotifyUserId)
 	if errStmt != nil {
 		log.Printf("Something went wrong %v", errStmt)
+		return topTracks, errStmt
 	}
 	defer rows.Close()
 	for rows.Next() {
@@ -60,12 +62,30 @@ func GetHistoricalTopTracks(spotify_user_id string) ([]TopTracks, error) {
 		err := rows.Scan(&topTrack.CreatedAt, &topTrack.TimeSpan, &topTrack.Tracks)
 		if err != nil {
 			log.Printf("Something went wrong %v", err)
+			return topTracks, err
 		}
 		topTracks = append(topTracks, *topTrack)
 	}
 	if err := rows.Err(); err != nil {
 		log.Printf("Something went wrong %v", err)
+		return topTracks, err
 	}
 	log.Println(topTracks)
 	return topTracks, nil
 }
+
+// func ShouldInsertNewTrack(table string, spotifyUserId string) bool {
+// 	db, e := Initialize()
+// 	if e != nil {
+// 		log.Printf("Something went wrong %v", e)
+// 		return true
+// 	}
+// 	conn := db.Conn
+// 	curTime := time.Now().Unix()
+// 	stmtStr := `SELECT created_at FROM $1 WHERE spotify_user_id=$2 order by created_at DESC LIMIT 10;`
+// 	stmt, err := conn.Prepare(stmtStr)
+// 	if err != nil {
+// 		log.Println(err)
+// 	}
+
+// }
