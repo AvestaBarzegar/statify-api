@@ -2,6 +2,7 @@ package database
 
 import (
 	"log"
+	"time"
 )
 
 func GetHistoricalTopArtists(spotifyUserId string) ([]TopArtists, error) {
@@ -74,18 +75,37 @@ func GetHistoricalTopTracks(spotifyUserId string) ([]TopTracks, error) {
 	return topTracks, nil
 }
 
-// func ShouldInsertNewTrack(table string, spotifyUserId string) bool {
-// 	db, e := Initialize()
-// 	if e != nil {
-// 		log.Printf("Something went wrong %v", e)
-// 		return true
-// 	}
-// 	conn := db.Conn
-// 	curTime := time.Now().Unix()
-// 	stmtStr := `SELECT created_at FROM $1 WHERE spotify_user_id=$2 order by created_at DESC LIMIT 10;`
-// 	stmt, err := conn.Prepare(stmtStr)
-// 	if err != nil {
-// 		log.Println(err)
-// 	}
-
-// }
+func ShouldInsertNewTrack(table string, spotifyUserId string) bool {
+	db, e := Initialize()
+	if e != nil {
+		log.Printf("Something went wrong %v", e)
+		return true
+	}
+	conn := db.Conn
+	curTime := time.Now().Unix()
+	stmtStr := `SELECT (EXTRACT(EPOCH FROM created_at))::bigint FROM $1 WHERE spotify_user_id=$2 order by created_at DESC LIMIT 1;`
+	stmt, err := conn.Prepare(stmtStr)
+	if err != nil {
+		log.Println(err)
+		return true
+	}
+	rows, errStmt := stmt.Query(table, spotifyUserId)
+	if errStmt != nil {
+		log.Printf("Something went wrong %v", errStmt)
+		return true
+	}
+	defer rows.Close()
+	for rows.Next() {
+		lastUpdated := new(int64)
+		err := rows.Scan(&lastUpdated)
+		if err != nil {
+			log.Printf("Something went wrong %v", err)
+			return true
+		}
+		oneDay := int64(86400)
+		if curTime-oneDay > *lastUpdated {
+			return true
+		}
+	}
+	return false
+}
